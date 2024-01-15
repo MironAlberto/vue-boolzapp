@@ -25,7 +25,7 @@ aside{
 
 section{
     width: 67%;
-    background-color: orange;
+    /* background-color: orange; */
     max-height: 100%;
     display: flex;
     justify-content: space-between;

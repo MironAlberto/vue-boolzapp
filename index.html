@@ -34,7 +34,7 @@
                         <div>
                             <div class="d-flex">
                                 <div class="img-box">
-                                    <img src="/img/avatar_io.jpg" alt="Sofia">
+                                    <img src="img/avatar_io.jpg" alt="Sofia">
                                 </div>
                                 <div>
                                     <div class="user" id="user-id">
@@ -71,26 +71,28 @@
                     <div class="research">
                         <div class="input-group p-1">
                             <button class="btn" type="button" id="button-addon1"><i class="fa-solid fa-magnifying-glass"></i></button>
-                            <input type="text" class="form-control border-0" placeholder="Cerca o inizia una nuova chat" aria-label="" aria-describedby="button-addon1">
+                            <input type="text" class="form-control border-0" placeholder="Cerca o inizia una nuova chat" v-model="searchingChat" @keyup="filteredContacts()">
                           </div>
                     </div>
                     <div class="list-chat">
-                        <div class="d-flex pb-2" v-for="(c, i) in contacts" :class="(i == currentContact)? 'active' : ''" @click="currentContact = i">
-                            <div class="img-box" id="image-size">
-                                <img :src="c.avatar" :alt="c.name">
-                            </div>
-                            <div class="d-flex flex-column flex-grow-1">
-                                <div class="user" id="user-id">
-                                    {{ c.name }}
+                        <div v-for="(c, i) in contacts">
+                            <div class="d-flex pb-2" v-if="c.visible"  :class="(i == currentContact)? 'active' : ''" @click="currentContact = i">
+                                <div class="img-box" id="image-size">
+                                    <img :src="c.avatar" :alt="c.name">
                                 </div>
-                                <div class="text-secondary text-size">
-                                    Ultimo messaggio inviato
+                                <div class="d-flex flex-column flex-grow-1">
+                                    <div class="user" id="user-id">
+                                        {{ c.name }}
+                                    </div>
+                                    <div class="text-secondary text-size">
+                                        {{ c.messages[c.messages.length - 1].message }}
+                                    </div>
+                                </div> 
+                                <div class="pe-3 pt-4 text-size text-secondary">
+                                    {{ c.messages[c.messages.length - 1].date }}
                                 </div>
-                            </div> 
-                            <div class="pe-3 pt-4 text-size text-secondary">
-                                12:00
-                            </div>
-                        </div>                       
+                            </div>     
+                        </div>                    
                     </div>                        
                 </aside>
 
@@ -105,7 +107,7 @@
                                     {{contacts[currentContact].name}}
                                 </div>
                                 <div class="text-secondary">
-                                    Ultimo accesso oggi alle 12:00
+                                    Online
                                 </div>
                             </div> 
                         </div>

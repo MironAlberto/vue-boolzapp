@@ -5,6 +5,7 @@ createApp({
         return {
             currentContact: 0,
             newMessage: '',
+            searchingChat: '',
             contacts: [
                 {
                     name: 'Michele',
@@ -180,7 +181,7 @@ createApp({
                     status: 'sent'
                 })
             }
-            this.newMessage = "";
+            this.newMessage = '';
             setTimeout(() => this.receivedMessage(), 1000);
         },
         receivedMessage(){
@@ -189,7 +190,14 @@ createApp({
                 message: 'Ok',
                 status: 'received'
             })
-        }
-    }
+        },
+        filteredContacts() {
+            const lowerCaseResearch = this.searchingChat.toLowerCase();
+            for (let i = 0; i < this.contacts.length; i++){
+                const lowerCaseName = this.contacts[i].name.toLowerCase();
+                this.contacts[i].visible = lowerCaseName.includes(lowerCaseResearch);
+            }
+        },
+    }   
 
 }).mount('#app')
