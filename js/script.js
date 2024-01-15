@@ -176,7 +176,7 @@ createApp({
         sendAMessage(){
             if(this.newMessage.trim().length > 0){
                 this.contacts[this.currentContact].messages.push({
-                    date: '12/01/2023 21:10:00',
+                    date: this.currentTime(),
                     message: this.newMessage,
                     status: 'sent'
                 })
@@ -186,7 +186,7 @@ createApp({
         },
         receivedMessage(){
             this.contacts[this.currentContact].messages.push({
-                date: '12/01/2023 21:10:01',
+                date: this.currentTime(),
                 message: 'Ok',
                 status: 'received'
             })
@@ -198,6 +198,19 @@ createApp({
                 this.contacts[i].visible = lowerCaseName.includes(lowerCaseResearch);
             }
         },
+        deleteMessage(i){
+            this.contacts[this.currentContact].messages.splice(i, 1)
+        }, 
+        currentTime(){
+            let time = '';
+            const now = new Date();
+
+            time += now.getHours().toString().padStart(2, '0');
+            time += ':';
+            time += now.getMinutes().toString().padStart(2, '0');
+            
+            return time;
+        }
     }   
 
 }).mount('#app')
